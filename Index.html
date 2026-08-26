@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KremRice | Sarap na may SurpRice</title>
+<meta name="description" content="KremRice — handcrafted Filipino rice balls with a surprise filling inside. Sarap na may SurpRice.">
+<link rel="icon" href="kremrice-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,500;1,9..144,700&family=Caveat:wght@600;700&family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,700;6..12,800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#F4E8D2;
+    --cream-soft:#FBF4E6;
+    --cream-line:#E4D3AE;
+    --maroon:#6E1B2B;
+    --maroon-dark:#3B0E19;
+    --maroon-soft:#8A2C3E;
+    --gold:#EDA23A;
+    --gold-deep:#C97B1F;
+    --mauve:#8A6E78;
+    --ink:#241512;
+    --shadow: 0 14px 30px -12px rgba(59,14,25,0.35);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important;}
+  }
+  body{
+    margin:0;
+    background:var(--cream);
+    color:var(--ink);
+    font-family:'Nunito Sans', sans-serif;
+    font-size:16px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  h1,h2,h3{
+    font-family:'Fraunces', serif;
+    margin:0;
+    color:var(--maroon-dark);
+    letter-spacing:-0.01em;
+  }
+  a{color:inherit;text-decoration:none;}
+  img{max-width:100%;display:block;}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 28px;}
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:10px;
+    font-family:'Nunito Sans',sans-serif;
+    font-weight:800;
+    font-size:0.75rem;
+    letter-spacing:0.18em;
+    text-transform:uppercase;
+    color:var(--gold-deep);
+  }
+  .eyebrow::before{
+    content:"";
+    width:22px;height:2px;
+    background:var(--gold-deep);
+    display:inline-block;
+    border-radius:2px;
+  }
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:10px;
+    padding:15px 30px;
+    border-radius:999px;
+    font-family:'Nunito Sans',sans-serif;
+    font-weight:800;
+    font-size:0.98rem;
+    cursor:pointer;
+    border:2px solid transparent;
+    transition:transform .25s ease, box-shadow .25s ease, background .25s ease, color .25s ease;
+    white-space:nowrap;
+  }
+  .btn:focus-visible{outline:3px solid var(--gold-deep); outline-offset:3px;}
+  .btn-primary{
+    background:var(--maroon);
+    color:var(--cream-soft);
+    box-shadow: var(--shadow);
+  }
+  .btn-primary:hover{transform:translateY(-3px); box-shadow:0 18px 34px -10px rgba(59,14,25,0.45);}
+  .btn-outline{
+    background:transparent;
+    border-color:var(--maroon);
+    color:var(--maroon);
+  }
+  .btn-outline:hover{background:var(--maroon); color:var(--cream-soft); transform:translateY(-3px);}
+  .btn svg{width:18px;height:18px;flex-shrink:0;}
+
+  /* ---------- Header ---------- */
+  header{
+    position:fixed; top:0; left:0; right:0; z-index:50;
+    padding:18px 0;
+    transition:background .35s ease, padding .35s ease, box-shadow .35s ease;
+  }
+  header.scrolled{
+    background:rgba(244,232,210,0.92);
+    backdrop-filter:blur(10px);
+    padding:12px 0;
+    box-shadow:0 6px 24px -14px rgba(59,14,25,0.4);
+  }
+  .nav-row{display:flex;align-items:center;justify-content:space-between;gap:20px;}
+  .brand{display:flex;align-items:center;gap:12px;font-weight:800;}
+  .logo-mark{
+    border-radius:50%;
+    display:block;
+    object-fit:cover;
+    flex-shrink:0;
+  }
+  .logo-mark--sm{width:44px;height:44px;}
+  .foot-brand .logo-mark{box-shadow:0 0 0 2px var(--gold);}
+  .brand-name{font-family:'Fraunces',serif; font-weight:700; font-size:1.25rem; color:var(--maroon-dark);}
+  .nav-links{display:flex; align-items:center; gap:34px; font-weight:700; font-size:0.95rem;}
+  .nav-links a{position:relative; color:var(--ink); padding:4px 0;}
+  .nav-links a::after{
+    content:"";position:absolute;left:0;bottom:-2px;width:0;height:2px;background:var(--gold-deep);
+    transition:width .25s ease;
+  }
+  .nav-links a:hover::after{width:100%;}
+  .nav-cta{display:flex;align-items:center;gap:14px;}
+  .icon-row{display:flex;gap:10px;}
+  .icon-btn{
+    width:38px;height:38px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    background:var(--cream-soft);
+    border:1.5px solid var(--cream-line);
+    color:var(--maroon);
+    transition:transform .2s ease, background .2s ease, color .2s ease, border-color .2s ease;
+  }
+  .icon-btn svg{width:17px;height:17px;}
+  .icon-btn:hover{background:var(--maroon); border-color:var(--maroon); color:var(--gold); transform:translateY(-2px) rotate(-6deg);}
+  .burger{
+    display:none; width:44px;height:44px;border-radius:50%;
+    border:2px solid var(--maroon); background:transparent;
+    align-items:center;justify-content:center; cursor:pointer;
+  }
+  .burger span, .burger span::before, .burger span::after{
+    content:"";display:block;width:18px;height:2px;background:var(--maroon);position:relative;
+    transition:transform .25s ease, opacity .25s ease;
+  }
+  .burger span::before{position:absolute; top:-6px;}
+  .burger span::after{position:absolute; top:6px;}
+
+  /* ---------- Hero ---------- */
+  .hero{
+    position:relative;
+    padding:168px 0 110px;
+    overflow:hidden;
+  }
+  .hero::before{
+    content:"";
+    position:absolute; top:-140px; right:-160px;
+    width:480px;height:480px;border-radius:50%;
+    background:radial-gradient(circle at 30% 30%, rgba(237,162,58,0.35), rgba(237,162,58,0) 70%);
+    pointer-events:none;
+  }
+  .hero-grid{
+    display:grid; grid-template-columns:1.05fr 0.95fr; gap:60px; align-items:center; position:relative; z-index:2;
+  }
+  .hero-copy .eyebrow{margin-bottom:18px;}
+  .hero-title{
+    font-size:clamp(3.2rem, 6.4vw, 5.6rem);
+    font-weight:900;
+    font-style:italic;
+    color:var(--maroon);
+    line-height:0.95;
+    margin-bottom:6px;
+  }
+  .hero-title em{
+    display:block;
+    font-style:italic;
+    color:var(--gold-deep);
+  }
+  .tagline{
+    font-family:'Caveat', cursive;
+    font-weight:700;
+    font-size:2.1rem;
+    color:var(--mauve);
+    display:inline-block;
+    transform:rotate(-2deg);
+    margin:14px 0 22px;
+  }
+  .hero-desc{
+    max-width:460px;
+    font-size:1.08rem;
+    color:#4a2e2b;
+    margin-bottom:34px;
+  }
+  .hero-actions{display:flex; flex-wrap:wrap; gap:16px; margin-bottom:38px;}
+  .hero-social-hint{display:flex; align-items:center; gap:14px; font-size:0.85rem; color:var(--mauve); font-weight:700;}
+  .hero-social-hint .icon-row .icon-btn{background:var(--cream-soft);}
+
+  .hero-art{position:relative; display:flex; align-items:center; justify-content:center;}
+  .logo-mark--hero{
+    width:min(380px, 88vw);
+    aspect-ratio:1/1;
+    box-shadow:var(--shadow);
+    animation:float 6s ease-in-out infinite;
+  }
+  @keyframes float{
+    0%,100%{transform:translateY(0) rotate(-2deg);}
+    50%{transform:translateY(-14px) rotate(1deg);}
+  }
+  .rice-dot{
+    position:absolute; border-radius:50%;
+    box-shadow:0 8px 18px -6px rgba(59,14,25,0.35);
+  }
+
+  /* ---------- Scalloped divider ---------- */
+  .scallop{display:block; width:100%; line-height:0;}
+  .scallop svg{width:100%; height:44px; display:block;}
+
+  /* ---------- Section shells ---------- */
+  section{position:relative;}
+  .section-head{max-width:640px; margin:0 auto 56px; text-align:center;}
+  .section-head h2{font-size:clamp(2.1rem, 4vw, 3rem); font-weight:700; margin:12px 0 14px;}
+  .section-head p{color:#5a3e3a; font-size:1.05rem;}
+  .section-head .eyebrow{justify-content:center;}
+
+  /* ---------- Flavors ---------- */
+  .flavors{background:var(--cream-soft); padding:100px 0 90px;}
+  .flavor-carousel{position:relative;}
+  .flavor-track{
+    display:flex;
+    gap:24px;
+    overflow-x:auto;
+    scroll-snap-type:x mandatory;
+    padding:6px 4px 26px;
+    scrollbar-width:thin;
+    scrollbar-color:var(--gold-deep) var(--cream-line);
+  }
+  .flavor-track::-webkit-scrollbar{height:8px;}
+  .flavor-track::-webkit-scrollbar-track{background:var(--cream-line); border-radius:8px;}
+  .flavor-track::-webkit-scrollbar-thumb{background:var(--gold-deep); border-radius:8px;}
+  .flavor-nav{display:flex; gap:12px; justify-content:center; margin-top:4px;}
+  .flavor-nav button{
+    width:42px;height:42px;border-radius:50%;
+    border:1.5px solid var(--cream-line);
+    background:var(--cream);
+    color:var(--maroon);
+    display:flex;align-items:center;justify-content:center;
+    cursor:pointer;
+    transition:background .2s ease, color .2s ease, transform .2s ease;
+  }
+  .flavor-nav button svg{width:18px;height:18px;}
+  .flavor-nav button:hover{background:var(--maroon); color:var(--gold); transform:translateY(-2px);}
+  .flavor-card{
+    flex:0 0 260px;
+    scroll-snap-align:start;
+    background:var(--cream);
+    border:1.5px solid var(--cream-line);
+    border-radius:22px;
+    padding:34px 26px 30px;
+    text-align:center;
+    position:relative;
+    transition:transform .3s ease, box-shadow .3s ease, border-color .3s ease;
+  }
+  .flavor-card:hover{transform:translateY(-8px); box-shadow:var(--shadow); border-color:var(--gold-deep);}
+  .flavor-ball{
+    width:78px;height:78px;border-radius:50%;
+    margin:0 auto 20px;
+    border:3px dashed rgba(59,14,25,0.25);
+    display:flex; align-items:center; justify-content:center;
+    position:relative;
+  }
+  .flavor-ball::after{
+    content:"";
+    position:absolute; inset:9px; border-radius:50%;
+  }
+  .flavor-card h3{font-size:1.18rem; font-weight:700; margin-bottom:8px;}
+  .flavor-card p{font-size:0.92rem; color:#5a3e3a; margin:0;}
+  .flavor-tag{
+    position:absolute; top:16px; right:16px;
+    font-family:'Caveat',cursive; font-weight:700; color:var(--gold-deep); font-size:1.05rem;
+    transform:rotate(6deg);
+  }
+
+  /* ---------- Story ---------- */
+  .story{
+    background:var(--maroon);
+    color:var(--cream-soft);
+    padding:100px 0 90px;
+  }
+  .story-grid{display:grid; grid-template-columns:1fr 0.85fr; gap:60px; align-items:center;}
+  .story .eyebrow{color:var(--gold);}
+  .story .eyebrow::before{background:var(--gold);}
+  .story h2{color:var(--cream-soft); font-size:clamp(2rem,3.6vw,2.8rem); margin:14px 0 20px;}
+  .story p{color:#e9d6cf; font-size:1.03rem; margin-bottom:18px;}
+  .stat-row{display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:36px;}
+  .stat-card{
+    background:rgba(244,232,210,0.08);
+    border:1px solid rgba(237,162,58,0.35);
+    border-radius:16px;
+    padding:20px 16px;
+    text-align:center;
+  }
+  .stat-card strong{display:block; font-family:'Fraunces',serif; font-size:1.7rem; color:var(--gold); margin-bottom:4px;}
+  .stat-card span{font-size:0.82rem; color:#e9d6cf;}
+  .story-art{
+    position:relative; display:flex; align-items:center; justify-content:center;
+  }
+  .story-art svg{width:100%; max-width:340px;}
+
+  /* ---------- Connect ---------- */
+  .connect{background:var(--cream); padding:100px 0 60px; text-align:center;}
+  .medallions{
+    display:flex; flex-wrap:wrap; justify-content:center; gap:34px; margin-bottom:20px;
+  }
+  .medallion{
+    display:flex; flex-direction:column; align-items:center; gap:14px;
+    width:150px;
+  }
+  .medallion-circle{
+    width:96px;height:96px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    background:var(--maroon);
+    border:3px dashed var(--gold);
+    box-shadow:var(--shadow);
+    transition:transform .3s ease, background .3s ease;
+    color:var(--gold);
+  }
+  .medallion-circle svg{width:34px;height:34px;}
+  .medallion:hover .medallion-circle{transform:rotate(-8deg) scale(1.06); background:var(--gold-deep); color:var(--maroon-dark); border-color:var(--maroon);}
+  .medallion span{font-weight:800; font-size:0.92rem; color:var(--maroon-dark);}
+  .medallion small{color:var(--mauve); font-size:0.78rem; font-weight:700;}
+
+  .email-line{
+    margin-top:30px; font-size:1.05rem; font-weight:700; color:var(--maroon-dark);
+  }
+  .email-line a{color:var(--gold-deep); border-bottom:2px dashed var(--gold-deep); padding-bottom:2px;}
+
+  /* ---------- Footer ---------- */
+  footer{
+    background:var(--maroon-dark);
+    color:#e9d6cf;
+    padding:46px 0 30px;
+  }
+  .foot-row{display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:20px;}
+  .foot-brand{display:flex; align-items:center; gap:12px;}
+  .foot-tagline{font-family:'Caveat',cursive; font-size:1.3rem; color:var(--gold);}
+  .foot-copy{font-size:0.82rem; color:#c9aeae; text-align:center; margin-top:26px;}
+
+  /* ---------- Reveal ---------- */
+  .reveal{opacity:0; transform:translateY(26px); transition:opacity .7s ease, transform .7s ease;}
+  .reveal.in{opacity:1; transform:translateY(0);}
+
+  /* ---------- Responsive ---------- */
+  @media (max-width:960px){
+    .hero-grid{grid-template-columns:1fr; text-align:center;}
+    .hero-desc{margin-left:auto; margin-right:auto;}
+    .hero-actions, .hero-social-hint{justify-content:center;}
+    .hero-art{order:-1; margin-bottom:10px;}
+    .story-grid{grid-template-columns:1fr; text-align:center;}
+    .story-art{order:-1;}
+    .stat-row{grid-template-columns:repeat(3,1fr);}
+  }
+  @media (max-width:780px){
+    .nav-links{
+      position:fixed; top:0; right:0; height:100vh; width:min(78vw,320px);
+      background:var(--cream-soft);
+      flex-direction:column; justify-content:center; align-items:flex-start;
+      padding:40px; gap:26px;
+      transform:translateX(100%);
+      transition:transform .35s ease;
+      box-shadow:-10px 0 30px rgba(59,14,25,0.2);
+    }
+    .nav-links.open{transform:translateX(0);}
+    .icon-row.desktop-only{display:none;}
+    .burger{display:flex;}
+  }
+  @media (max-width:640px){
+    .wrap{padding:0 20px;}
+    .flavor-card{flex-basis:220px;}
+    .stat-row{grid-template-columns:1fr; gap:12px;}
+    .medallions{gap:22px;}
+    .medallion{width:120px;}
+    .medallion-circle{width:80px;height:80px;}
+    .foot-row{flex-direction:column; text-align:center;}
+  }
+</style>
+</head>
+<body>
+
+<header id="siteHeader">
+  <div class="wrap nav-row">
+    <a href="#home" class="brand">
+      <img src="kremrice-logo.png" alt="KremRice logo" class="logo-mark logo-mark--sm">
+      <span class="brand-name">KremRice</span>
+    </a>
+    <nav class="nav-links" id="navLinks">
+      <a href="#flavors">Menu</a>
+      <a href="#story">Our Story</a>
+      <a href="#connect">Connect</a>
+    </nav>
+    <div class="nav-cta">
+      <div class="icon-row desktop-only">
+        <a class="icon-btn" href="https://www.facebook.com/profile.php?id=61589026391669" target="_blank" rel="noopener" aria-label="KremRice on Facebook">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5 3.66 9.15 8.44 9.94v-7.03H7.9v-2.9h2.54V9.85c0-2.5 1.49-3.89 3.77-3.89 1.09 0 2.23.2 2.23.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56v1.88h2.78l-.44 2.9h-2.34V22c4.78-.79 8.44-4.94 8.44-9.94z"/></svg>
+        </a>
+        <a class="icon-btn" href="https://www.instagram.com/kremrice.pup?igsh=OHRiNDZybzZ4Z2Qz" target="_blank" rel="noopener" aria-label="KremRice on Instagram">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"/></svg>
+        </a>
+        <a class="icon-btn" href="https://www.tiktok.com/@_kremrice?_r=1&_t=ZS-994b5XqyZZ2" target="_blank" rel="noopener" aria-label="KremRice on TikTok">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.6 5.82c-.9-.78-1.45-1.9-1.5-3.13h-3.09v13.44c0 1.5-1.22 2.72-2.72 2.72a2.72 2.72 0 0 1-2.72-2.72c0-1.5 1.22-2.72 2.72-2.72.28 0 .55.04.8.12v-3.13a5.8 5.8 0 0 0-.8-.06 5.81 5.81 0 1 0 5.81 5.79V9.4a7.15 7.15 0 0 0 4.2 1.34V7.66a3.98 3.98 0 0 1-2.7-1.84z"/></svg>
+        </a>
+      </div>
+      <button class="burger" id="burgerBtn" aria-label="Open menu" aria-expanded="false"><span></span></button>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <div class="wrap hero-grid">
+      <div class="hero-copy reveal">
+        <span class="eyebrow">Handcrafted kakanin • Galing sa PUP</span>
+        <h1 class="hero-title">Krem<em>Rice</em></h1>
+        <div class="tagline">Sarap na may SurpRice</div>
+        <p class="hero-desc">Every ball of KremRice hides a gooey, cheesy, ube-y, chocolate-y surprise right at the center — rolled fresh, sold warm, made by hand the way your lola would approve of.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="https://www.facebook.com/profile.php?id=61589026391669" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5 3.66 9.15 8.44 9.94v-7.03H7.9v-2.9h2.54V9.85c0-2.5 1.49-3.89 3.77-3.89 1.09 0 2.23.2 2.23.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56v1.88h2.78l-.44 2.9h-2.34V22c4.78-.79 8.44-4.94 8.44-9.94z"/></svg>
+            Order sa Messenger
+          </a>
+          <a class="btn btn-outline" href="https://www.tiktok.com/@_kremrice?_r=1&_t=ZS-994b5XqyZZ2" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.6 5.82c-.9-.78-1.45-1.9-1.5-3.13h-3.09v13.44c0 1.5-1.22 2.72-2.72 2.72a2.72 2.72 0 0 1-2.72-2.72c0-1.5 1.22-2.72 2.72-2.72.28 0 .55.04.8.12v-3.13a5.8 5.8 0 0 0-.8-.06 5.81 5.81 0 1 0 5.81 5.79V9.4a7.15 7.15 0 0 0 4.2 1.34V7.66a3.98 3.98 0 0 1-2.7-1.84z"/></svg>
+            Watch the process
+          </a>
+        </div>
+        <div class="hero-social-hint">
+          <span>Sundan kami</span>
+          <div class="icon-row">
+            <a class="icon-btn" href="https://www.instagram.com/kremrice.pup?igsh=OHRiNDZybzZ4Z2Qz" target="_blank" rel="noopener" aria-label="Instagram">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"/></svg>
+            </a>
+            <a class="icon-btn" href="mailto:kremrice@gmail.com" aria-label="Email">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2.4"/><path d="M4 6.5 12 13l8-6.5"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="hero-art reveal">
+        <img src="kremrice-logo.png" alt="KremRice - Sarap na may SurpRice" class="logo-mark logo-mark--hero">
+      </div>
+    </div>
+  </section>
+
+  <div class="scallop" aria-hidden="true">
+    <svg viewBox="0 0 1200 44" preserveAspectRatio="none"><path d="M0,44 L0,22 Q25,0 50,22 T100,22 T150,22 T200,22 T250,22 T300,22 T350,22 T400,22 T450,22 T500,22 T550,22 T600,22 T650,22 T700,22 T750,22 T800,22 T850,22 T900,22 T950,22 T1000,22 T1050,22 T1100,22 T1150,22 T1200,22 L1200,44 Z" fill="#FBF4E6"/></svg>
+  </div>
+
+  <!-- FLAVORS -->
+  <section class="flavors" id="flavors">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow">Ang Palaman</span>
+        <h2>Pick your SurpRice</h2>
+        <p>Swipe through our fillings — rolled fresh in small batches, walang preservatives, puro sarap lang.</p>
+      </div>
+      <div class="flavor-carousel">
+        <div class="flavor-track" id="flavorTrack">
+          <div class="flavor-card reveal">
+            <span class="flavor-tag">bestseller</span>
+            <div class="flavor-ball" style="background:linear-gradient(135deg,#F3C868,#E8A93C);"></div>
+            <h3>Classic with Cheese</h3>
+            <p>Our OG rice ball, generously loaded with melty cheese in every bite.</p>
+          </div>
+          <div class="flavor-card reveal">
+            <div class="flavor-ball" style="background:linear-gradient(135deg,#B98FC9,#6E4A82);"></div>
+            <h3>Ube with Cheese</h3>
+            <p>Vibrant ube rice ball with a cheesy surprise tucked inside.</p>
+          </div>
+          <div class="flavor-card reveal">
+            <span class="flavor-tag">new</span>
+            <div class="flavor-ball" style="background:linear-gradient(135deg,#F6D9A0,#C9973F);"></div>
+            <h3>Leche Flan</h3>
+            <p>Silky homemade leche flan tucked inside a soft rice shell.</p>
+          </div>
+          <div class="flavor-card reveal">
+            <div class="flavor-ball" style="background:linear-gradient(135deg,#8F6BA8,#4E2E63);"></div>
+            <h3>Ube Halaya</h3>
+            <p>Classic ube halaya, slow-cooked and baked right into the center.</p>
+          </div>
+        </div>
+        <div class="flavor-nav">
+          <button type="button" id="flavPrev" aria-label="Scroll to previous flavors">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg>
+          </button>
+          <button type="button" id="flavNext" aria-label="Scroll to next flavors">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="scallop" aria-hidden="true">
+    <svg viewBox="0 0 1200 44" preserveAspectRatio="none"><path d="M0,44 L0,22 Q25,0 50,22 T100,22 T150,22 T200,22 T250,22 T300,22 T350,22 T400,22 T450,22 T500,22 T550,22 T600,22 T650,22 T700,22 T750,22 T800,22 T850,22 T900,22 T950,22 T1000,22 T1050,22 T1100,22 T1150,22 T1200,22 L1200,44 Z" fill="#6E1B2B"/></svg>
+  </div>
+
+  <!-- STORY -->
+  <section class="story" id="story">
+    <div class="wrap story-grid">
+      <div class="reveal">
+        <span class="eyebrow">Mula sa Bukid Hanggang Bilao</span>
+        <h2>Bawat balde ng bigas, may kwento.</h2>
+        <p>KremRice started as a small student project sa PUP — a love letter to the kakanin our lolas used to sell along the street, given a playful modern twist. We work with local rice farmers, cook everything by hand in small batches, and hide a little surprise inside every ball. Because "sarap" is good — but "sarap na may surprise" is better.</p>
+        <p>No shortcuts, no preservatives — just bigas, gata, and a lot of patience.</p>
+        <div class="stat-row">
+          <div class="stat-card"><strong>100%</strong><span>Local Pinoy bigas</span></div>
+          <div class="stat-card"><strong>6</strong><span>Surprise flavors</span></div>
+          <div class="stat-card"><strong>0</strong><span>Preservatives added</span></div>
+        </div>
+      </div>
+      <div class="story-art reveal">
+        <svg viewBox="0 0 300 320" fill="none">
+          <ellipse cx="150" cy="300" rx="120" ry="14" fill="#4A0F1B"/>
+          <path d="M150 40 C120 90 90 140 100 200 C108 250 130 270 150 270 C170 270 192 250 200 200 C210 140 180 90 150 40Z" fill="#EDA23A" opacity="0.9"/>
+          <path d="M150 40 C138 90 122 140 128 200" stroke="#C97B1F" stroke-width="2" opacity="0.6"/>
+          <path d="M150 40 C162 90 178 140 172 200" stroke="#C97B1F" stroke-width="2" opacity="0.6"/>
+          <circle cx="150" cy="270" r="10" fill="#3B0E19"/>
+          <rect x="146" y="270" width="8" height="40" fill="#3B0E19"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <div class="scallop" aria-hidden="true">
+    <svg viewBox="0 0 1200 44" preserveAspectRatio="none"><path d="M0,44 L0,22 Q25,0 50,22 T100,22 T150,22 T200,22 T250,22 T300,22 T350,22 T400,22 T450,22 T500,22 T550,22 T600,22 T650,22 T700,22 T750,22 T800,22 T850,22 T900,22 T950,22 T1000,22 T1050,22 T1100,22 T1150,22 T1200,22 L1200,44 Z" fill="#F4E8D2"/></svg>
+  </div>
+
+  <!-- CONNECT -->
+  <section class="connect" id="connect">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow">Sumali sa Sarap Squad</span>
+        <h2>Order, sundan, o kausapin kami</h2>
+        <p>Tap a stamp below — we reply fast, promise.</p>
+      </div>
+      <div class="medallions reveal">
+        <a class="medallion" href="https://www.facebook.com/profile.php?id=61589026391669" target="_blank" rel="noopener">
+          <span class="medallion-circle" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5 3.66 9.15 8.44 9.94v-7.03H7.9v-2.9h2.54V9.85c0-2.5 1.49-3.89 3.77-3.89 1.09 0 2.23.2 2.23.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56v1.88h2.78l-.44 2.9h-2.34V22c4.78-.79 8.44-4.94 8.44-9.94z"/></svg>
+          </span>
+          <span>Facebook</span>
+          <small>Message / Order</small>
+        </a>
+        <a class="medallion" href="https://www.instagram.com/kremrice.pup?igsh=OHRiNDZybzZ4Z2Qz" target="_blank" rel="noopener">
+          <span class="medallion-circle" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"/></svg>
+          </span>
+          <span>Instagram</span>
+          <small>@kremrice.pup</small>
+        </a>
+        <a class="medallion" href="https://www.tiktok.com/@_kremrice?_r=1&_t=ZS-994b5XqyZZ2" target="_blank" rel="noopener">
+          <span class="medallion-circle" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.6 5.82c-.9-.78-1.45-1.9-1.5-3.13h-3.09v13.44c0 1.5-1.22 2.72-2.72 2.72a2.72 2.72 0 0 1-2.72-2.72c0-1.5 1.22-2.72 2.72-2.72.28 0 .55.04.8.12v-3.13a5.8 5.8 0 0 0-.8-.06 5.81 5.81 0 1 0 5.81 5.79V9.4a7.15 7.15 0 0 0 4.2 1.34V7.66a3.98 3.98 0 0 1-2.7-1.84z"/></svg>
+          </span>
+          <span>TikTok</span>
+          <small>@_kremrice</small>
+        </a>
+        <a class="medallion" href="mailto:kremrice@gmail.com">
+          <span class="medallion-circle" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2.4"/><path d="M4 6.5 12 13l8-6.5"/></svg>
+          </span>
+          <span>Email</span>
+          <small>Inquiries</small>
+        </a>
+      </div>
+      <p class="email-line reveal">Or just email us straight: <a href="mailto:kremrice@gmail.com">kremrice@gmail.com</a></p>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-row">
+      <div class="foot-brand">
+        <img src="kremrice-logo.png" alt="KremRice logo" class="logo-mark logo-mark--sm">
+        <div>
+          <div class="brand-name" style="color:var(--cream-soft);">KremRice</div>
+          <div class="foot-tagline">Sarap na may SurpRice</div>
+        </div>
+      </div>
+      <div class="icon-row">
+        <a class="icon-btn" style="background:transparent;border-color:rgba(237,162,58,0.4);color:var(--gold);" href="https://www.facebook.com/profile.php?id=61589026391669" target="_blank" rel="noopener" aria-label="Facebook">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5 3.66 9.15 8.44 9.94v-7.03H7.9v-2.9h2.54V9.85c0-2.5 1.49-3.89 3.77-3.89 1.09 0 2.23.2 2.23.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56v1.88h2.78l-.44 2.9h-2.34V22c4.78-.79 8.44-4.94 8.44-9.94z"/></svg>
+        </a>
+        <a class="icon-btn" style="background:transparent;border-color:rgba(237,162,58,0.4);color:var(--gold);" href="https://www.instagram.com/kremrice.pup?igsh=OHRiNDZybzZ4Z2Qz" target="_blank" rel="noopener" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"/></svg>
+        </a>
+        <a class="icon-btn" style="background:transparent;border-color:rgba(237,162,58,0.4);color:var(--gold);" href="https://www.tiktok.com/@_kremrice?_r=1&_t=ZS-994b5XqyZZ2" target="_blank" rel="noopener" aria-label="TikTok">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.6 5.82c-.9-.78-1.45-1.9-1.5-3.13h-3.09v13.44c0 1.5-1.22 2.72-2.72 2.72a2.72 2.72 0 0 1-2.72-2.72c0-1.5 1.22-2.72 2.72-2.72.28 0 .55.04.8.12v-3.13a5.8 5.8 0 0 0-.8-.06 5.81 5.81 0 1 0 5.81 5.79V9.4a7.15 7.15 0 0 0 4.2 1.34V7.66a3.98 3.98 0 0 1-2.7-1.84z"/></svg>
+        </a>
+        <a class="icon-btn" style="background:transparent;border-color:rgba(237,162,58,0.4);color:var(--gold);" href="mailto:kremrice@gmail.com" aria-label="Email">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2.4"/><path d="M4 6.5 12 13l8-6.5"/></svg>
+        </a>
+      </div>
+    </div>
+    <p class="foot-copy">&copy; 2026 KremRice. Handmade sa Maynila, ipinagmamalaki mula sa PUP. All rights reserved.</p>
+  </div>
+</footer>
+
+<script>
+  // Header scroll state
+  const header = document.getElementById('siteHeader');
+  window.addEventListener('scroll', () => {
+    header.classList.toggle('scrolled', window.scrollY > 30);
+  });
+
+  // Mobile nav toggle
+  const burger = document.getElementById('burgerBtn');
+  const navLinks = document.getElementById('navLinks');
+  burger.addEventListener('click', () => {
+    const isOpen = navLinks.classList.toggle('open');
+    burger.setAttribute('aria-expanded', isOpen);
+  });
+  navLinks.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      navLinks.classList.remove('open');
+      burger.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  // Flavor carousel arrows
+  const flavorTrack = document.getElementById('flavorTrack');
+  const flavPrev = document.getElementById('flavPrev');
+  const flavNext = document.getElementById('flavNext');
+  if (flavorTrack && flavPrev && flavNext) {
+    const scrollAmount = () => Math.min(300, flavorTrack.clientWidth * 0.8);
+    flavPrev.addEventListener('click', () => flavorTrack.scrollBy({ left: -scrollAmount(), behavior: 'smooth' }));
+    flavNext.addEventListener('click', () => flavorTrack.scrollBy({ left: scrollAmount(), behavior: 'smooth' }));
+  }
+
+  // Reveal on scroll
+  const revealEls = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    revealEls.forEach(el => io.observe(el));
+  } else {
+    revealEls.forEach(el => el.classList.add('in'));
+  }
+</script>
+
+</body>
+</html>
